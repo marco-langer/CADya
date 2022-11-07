@@ -12,7 +12,7 @@
 
 namespace cdy {
 
-auto operator<<(std::ostream& os, LineSegment const& line_segment) -> std::ostream&
+inline auto operator<<(std::ostream& os, LineSegment const& line_segment) -> std::ostream&
 {
     return os << fmt::format("[[{}, {}], [{}, {}]]",
         line_segment.first.x, line_segment.first.y,

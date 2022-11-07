@@ -1,4 +1,5 @@
 #include "matchers/coordinate_matcher.hpp"
+#include "matchers/line_segment_matcher.hpp"
 
 #include "geometry/coordinate.hpp"
 #include "geometry/intersection.hpp"
@@ -11,8 +12,12 @@
 
 TEST_CASE("geometry.intersection.line-line")
 {
-    auto const [first, second, expected_result]
-        = GENERATE(table<cdy::LineSegment, cdy::LineSegment, std::optional<cdy::Coordinate>>({
+    auto const [first, second, expected_result] = GENERATE(table
+        <
+            cdy::LineSegment,
+            cdy::LineSegment,
+            std::optional<cdy::Coordinate>
+        >({
         {
             cdy::LineSegment{{0.0, 1.0}, {2.0, 1.0}},
             cdy::LineSegment{{1.0, 2.0}, {1.0, 0.0}},
@@ -21,6 +26,14 @@ TEST_CASE("geometry.intersection.line-line")
             cdy::LineSegment{{0.0, 1.0}, {2.0, 1.0}},
             cdy::LineSegment{{3.0, 2.0}, {3.0, 0.0}},
             std::nullopt
+        },{
+            cdy::LineSegment{{0.0, 1.0}, {2.0, 1.0}},
+            cdy::LineSegment{{-1.0, 2.0}, {3.0, 2.0}},
+            std::nullopt
+        },{
+            cdy::LineSegment{{0.0, 1.0}, {2.0, 1.0}},
+            cdy::LineSegment{{2.0, 1.0}, {3.0, 2.0}},
+            cdy::Coordinate{2.0, 1.0}
         }
     }));
 

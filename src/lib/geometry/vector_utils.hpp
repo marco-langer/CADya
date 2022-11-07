@@ -86,7 +86,7 @@ inline constexpr auto operator/(
 inline constexpr auto operator/=(
         Vector& vector,
         double scalar)
-    -> Vector
+    -> void
 {
     assert(scalar != 0.0);
     vector.x /= scalar;

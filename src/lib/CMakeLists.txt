@@ -25,5 +25,5 @@ target_compile_options(${LIB_NAME} PRIVATE
     $<$<CXX_COMPILER_ID:MSVC>:
         /W4 /WX>)
 
-
+target_link_libraries (${LIB_NAME} Eigen3::Eigen)
 

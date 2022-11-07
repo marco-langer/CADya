@@ -4,7 +4,15 @@
 
 namespace cdy {
 
-[[nodiscard]] auto projected(
+auto evaluate_at(
+        LineSegment const& line_segment,
+        double t)
+    -> Coordinate
+{
+    return line_segment.first + t * (line_segment.second - line_segment.first);
+}
+
+auto projected(
         LineSegment const& line_segment,
         Coordinate const& point)
     -> Coordinate

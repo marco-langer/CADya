@@ -7,6 +7,11 @@
 
 namespace cdy {
 
+auto evaluate_at(
+        LineSegment const& line_segment,
+        double t)
+    -> Coordinate;
+
 auto projected(
         LineSegment const& line_segment,
         Coordinate const& point)
