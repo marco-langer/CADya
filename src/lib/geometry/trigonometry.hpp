@@ -1,21 +1,14 @@
 #ifndef CADYA_GEOMETRY_TRIGONOMETRY_HPP
 #define CADYA_GEOMETRY_TRIGONOMETRY_HPP
 
-#include "angle.hpp"
-
-#include <cmath>
+#include "geometry/angle.hpp"
+#include "geometry/vector.hpp"
 
 namespace cdy {
 
-inline auto sin(Angle<Radian> radians) -> double
-{
-    return std::sin(radians);
-}
-
-inline auto cos(Angle<Radian> radians) -> double
-{
-    return std::cos(radians);
-}
+auto sin(Angle<Radian> radians) -> double;
+auto cos(Angle<Radian> radians) -> double;
+auto angle(Vector const& first, Vector const& second) -> Angle<Radian>;
 
 } // namespace cdy
 

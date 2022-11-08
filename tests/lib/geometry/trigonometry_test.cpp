@@ -1,3 +1,5 @@
+#include "matchers/angle_matcher.hpp"
+
 #include "geometry/trigonometry.hpp"
 
 #include <catch2/catch_approx.hpp>
@@ -23,7 +25,7 @@ TEST_CASE("geometry.trigonometry.sin()")
 
 TEST_CASE("geometry.trigonometry.cos()")
 {
-    const auto [angle, expected_result]
+    auto const [angle, expected_result]
         = GENERATE(table<cdy::Angle<cdy::Degree>, double>({
         {0_deg, 1.0},
         {30_deg, 0.5 * std::sqrt(3)},
@@ -32,4 +34,38 @@ TEST_CASE("geometry.trigonometry.cos()")
 
     auto const result = cdy::cos(angle);
     REQUIRE(result == Catch::Approx(expected_result));
+}
+
+TEST_CASE("geometry.trigonometry.angle()")
+{
+    auto const [first, second, expected_result]
+        = GENERATE(table<cdy::Vector, cdy::Vector, cdy::Angle<cdy::Degree>>({
+        {{0.0, 1.0}, {0.0, 1.0}, 0_deg},
+        {{0.0, 1.0}, {1.0, 1.0}, 45_deg},
+        {{0.0, 1.0}, {1.0, 0.0}, 90_deg},
+        {{0.0, 1.0}, {1.0, -1.0}, 135_deg},
+        {{0.0, 1.0}, {0.0, -1.0}, 180_deg},
+        {{0.0, 1.0}, {-1.0, -1.0}, 135_deg},
+        {{0.0, 1.0}, {0.0, 1.000000000002}, 0_deg},
+        {
+            {0.38268343236508978, -0.92387953251128663},
+            {0.38268343236508978, -0.92387953251128663},
+            0_deg
+        },{
+            {0.38268343236508978, -0.92387953251128663},
+            {0.38268343236508984, -0.92387953251128685},
+            0_deg
+        },{
+            {-0.38268343236508978, 0.92387953251128663},
+            {0.38268343236508978, -0.92387953251128663},
+            180_deg
+        },{
+            {-0.38268343236508978, 0.92387953251128663},
+            {0.38268343236508984, -0.92387953251128685},
+            180_deg
+        }
+    }));
+
+    auto const result = cdy::angle(first, second);
+    REQUIRE_THAT(result, test::AngleMatcher<cdy::Degree>(expected_result));
 }

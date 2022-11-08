@@ -6,6 +6,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <compare>
 #include <concepts>
 #include <numbers>
 
@@ -67,10 +68,12 @@ public:
         }
     }
 
-    constexpr operator double() const
+    explicit constexpr operator double() const
     {
         return value_;
     }
+
+    auto operator<=>(Angle const& other) const -> bool = default;
 
 private:
     template <typename UnitOther>

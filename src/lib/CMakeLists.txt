@@ -4,6 +4,7 @@ set(LIB_SOURCES
     geometry/circle_utils.cpp
     geometry/intersection.cpp
     geometry/line_segment_utils.cpp
+    geometry/trigonometry.cpp
 )
 
 add_library(${LIB_NAME} SHARED ${LIB_SOURCES})
