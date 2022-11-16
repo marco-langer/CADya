@@ -1,9 +1,9 @@
 #ifndef CADYA_GEOMETRY_VECTOR_UTILS_HPP
 #define CADYA_GEOMETRY_VECTOR_UTILS_HPP
 
-#include "coordinate.hpp"
-#include "length.hpp"
-#include "vector.hpp"
+#include "geometry/coordinate.hpp"
+#include "geometry/length.hpp"
+#include "geometry/vector.hpp"
 
 #include <cassert>
 #include <cmath>

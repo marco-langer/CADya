@@ -1,8 +1,8 @@
 #ifndef CADYA_GEOMETRY_CIRCLE_UTILS_HPP
 #define CADYA_GEOMETRY_CIRCLE_UTILS_HPP
 
-#include "circle.hpp"
-#include "coordinate.hpp"
+#include "geometry/circle.hpp"
+#include "geometry/coordinate.hpp"
 
 #include <optional>
 

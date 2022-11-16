@@ -1,7 +1,7 @@
 #ifndef CADYA_GEOMETRY_ANGLE_HPP
 #define CADYA_GEOMETRY_ANGLE_HPP
 
-#include "geometry/math.hpp"
+#include "math.hpp"
 #include "type_traits.hpp"
 
 #include <cassert>
@@ -37,8 +37,10 @@ constexpr auto radian_to_degree(F radians) -> F
 struct Degree {};
 struct Radian {};
 
-template <typename Unit = Degree>
-requires traits::is_any_of<Unit, Degree, Radian>
+template <typename Unit>
+concept AngleUnit = traits::is_any_of<Unit, Degree, Radian>;
+
+template <AngleUnit Unit = Degree>
 class Angle
 {
 public:
@@ -50,7 +52,7 @@ public:
         assert(!is_inf(value));
     }
 
-    template <typename UnitOther>
+    template <AngleUnit UnitOther>
     requires (!std::same_as<UnitOther, Unit>)
     constexpr Angle(Angle<UnitOther> other)
     {
@@ -76,11 +78,17 @@ public:
     auto operator<=>(Angle const& other) const -> bool = default;
 
 private:
-    template <typename UnitOther>
+    template <AngleUnit UnitOther>
     friend class Angle;
 
     double value_{};
 };
+
+template <AngleUnit Unit>
+constexpr auto operator+(Angle<Unit> lhs, Angle<Unit> rhs) -> Angle<Unit>
+{
+    return Angle<Unit>{static_cast<double>(lhs) + static_cast<double>(rhs)};
+}
 
 namespace literals::angle_literals {
 
@@ -104,7 +112,13 @@ inline consteval auto operator ""_rad(unsigned long long value) -> Angle<Radian>
     return Angle<Radian>{static_cast<double>(value)};
 }
 
-} // namespace literals::angle_literals
+} // namespace cdy::literals::angle_literals
+
+namespace numbers {
+
+inline constexpr auto pi = Angle<Radian>{std::numbers::pi};
+
+} // namespace cdy::numbers
 
 } // namespace cdy
 

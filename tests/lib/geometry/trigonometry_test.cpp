@@ -1,4 +1,5 @@
 #include "matchers/angle_matcher.hpp"
+#include "matchers/vector_matcher.hpp"
 
 #include "geometry/trigonometry.hpp"
 
@@ -38,7 +39,7 @@ TEST_CASE("geometry.trigonometry.cos()")
 
 TEST_CASE("geometry.trigonometry.angle()")
 {
-    auto const [first, second, expected_result]
+    auto const [first, second, expected_angle]
         = GENERATE(table<cdy::Vector, cdy::Vector, cdy::Angle<cdy::Degree>>({
         {{0.0, 1.0}, {0.0, 1.0}, 0_deg},
         {{0.0, 1.0}, {1.0, 1.0}, 45_deg},
@@ -67,5 +68,24 @@ TEST_CASE("geometry.trigonometry.angle()")
     }));
 
     auto const result = cdy::angle(first, second);
-    REQUIRE_THAT(result, test::AngleMatcher<cdy::Degree>(expected_result));
+    REQUIRE_THAT(result, test::AngleMatcher<cdy::Degree>(expected_angle));
+}
+
+TEST_CASE("geometry.trigonometry.direction()") {
+
+    auto const [angle, expected_direction] = GENERATE(
+        table<cdy::Angle<cdy::Degree>, cdy::Vector>({
+        {0_deg, {1.0, 0.0}},
+        {45_deg, {1.0 / std::sqrt(2.0), 1.0 / std::sqrt(2.0)}},
+        {90_deg, {0.0, 1.0}},
+        {135_deg, {-1.0 / std::sqrt(2.0), 1.0 / std::sqrt(2.0)}},
+        {180_deg, {-1.0, 0.0}},
+        {225_deg, {-1.0 / std::sqrt(2.0), -1.0 / std::sqrt(2.0)}},
+        {270_deg, {0.0, -1.0}},
+        {315_deg, {1.0 / std::sqrt(2.0), -1.0 / std::sqrt(2.0)}},
+    }));
+
+    CAPTURE(angle, expected_direction);
+
+    REQUIRE_THAT(cdy::direction(angle), test::VectorMatcher(expected_direction));
 }

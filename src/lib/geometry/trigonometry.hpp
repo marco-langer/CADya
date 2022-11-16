@@ -6,9 +6,10 @@
 
 namespace cdy {
 
-auto sin(Angle<Radian> radians) -> double;
-auto cos(Angle<Radian> radians) -> double;
+auto sin(Angle<Radian> angle) -> double;
+auto cos(Angle<Radian> angle) -> double;
 auto angle(Vector const& first, Vector const& second) -> Angle<Radian>;
+auto direction(Angle<Radian> angle) -> Vector;
 
 } // namespace cdy
 

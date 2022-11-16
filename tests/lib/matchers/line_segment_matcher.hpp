@@ -14,9 +14,9 @@ namespace cdy {
 
 inline auto operator<<(std::ostream& os, LineSegment const& line_segment) -> std::ostream&
 {
-    return os << fmt::format("[[{}, {}], [{}, {}]]",
-        line_segment.first.x, line_segment.first.y,
-        line_segment.second.x, line_segment.second.y);
+    return os << fmt::format("[start: [{}, {}], end: [{}, {}]]",
+        line_segment.start().x, line_segment.start().y,
+        line_segment.end().x, line_segment.end().y);
 }
 
 } // namespace cdy
@@ -29,8 +29,8 @@ struct LineSegmentMatcher : BaseMatcher<cdy::LineSegment>
 
     auto match(cdy::LineSegment const& line_segment) const -> bool override
     {
-        return line_segment.first == CoordinateMatcher(expected().first, epsilon())
-            && line_segment.second == CoordinateMatcher(expected().second, epsilon());
+        return line_segment.start() == CoordinateMatcher(expected().start(), epsilon())
+            && line_segment.end() == CoordinateMatcher(expected().end(), epsilon());
     }
 };
 

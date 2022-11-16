@@ -9,6 +9,6 @@ struct Coordinate
     double y{};
 };
 
-}
+} // namespace cdy
 
-#endif // namespace cdy
+#endif

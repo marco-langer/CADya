@@ -1,9 +1,14 @@
 set(LIB_NAME cadyacore)
 
 set(LIB_SOURCES
+    geometry/circle.cpp
     geometry/circle_utils.cpp
+    geometry/coordinate_utils.cpp
     geometry/intersection.cpp
+    geometry/line.cpp
+    geometry/line_segment.cpp
     geometry/line_segment_utils.cpp
+    geometry/line_utils.cpp
     geometry/trigonometry.cpp
 )
 

@@ -1,6 +1,6 @@
-#include "circle_utils.hpp"
+#include "geometry/circle_utils.hpp"
 
-#include "vector_utils.hpp"
+#include "geometry/vector_utils.hpp"
 
 #include <numbers>
 

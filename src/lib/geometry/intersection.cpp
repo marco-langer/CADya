@@ -1,10 +1,19 @@
-#include "intersection.hpp"
+#include "geometry/intersection.hpp"
 
-#include "line_segment_utils.hpp"
+#include "geometry/line_segment_utils.hpp"
 
 #include <Eigen/Dense>
 
 namespace cdy {
+
+auto intersection(
+        Line const& first,
+        Line const& second)
+    -> std::optional<Coordinate>
+{
+    // TODO
+    return std::nullopt;
+}
 
 auto intersection(
         LineSegment const& first,
@@ -28,20 +37,14 @@ auto intersection(
      * f(t)_x = g(u)_x
      * f(t)_y = g(u)_y
      *
-     * =>
-     *
      * x1 + t * (x2 - x1) = x3 + u * (x4 - x3)
      * y1 + t * (y2 - y1) = y3 + u * (y4 - y3)
-     *
-     * =>
      *
      * (x2 - x1) * t + (x3 - x4) * u = x3 - x1
      * (y2 - y1) * t + (y3 - y4) * u = y3 - y1
      *
-     * =>
-     *
-     * ( a b ) * (z1) = ( f )
-     * ( c d )   (z2) = ( g )
+     * ( a b ) * ( t ) = ( f )
+     * ( c d )   ( u ) = ( g )
      *
      * a = x2 - x1
      * b = x3 - x4
@@ -53,14 +56,14 @@ auto intersection(
     // TODO why does the static assert triggers within the matrix constructor
     // and not within the vector constructor? Both are compile-time sized
     auto A = Eigen::Matrix2d{};
-    A << first.second.x - first.first.x,
-        second.first.x - second.second.x,
-        first.second.y - first.first.y,
-        second.first.y - second.second.y;
+    A << first.end().x - first.start().x,
+        second.start().x - second.end().x,
+        first.end().y - first.start().y,
+        second.start().y - second.end().y;
 
     auto const b = Eigen::Vector2d{
-        second.first.x - first.first.x,
-        second.first.y - first.first.y};
+        second.start().x - first.start().x,
+        second.start().y - first.start().y};
 
     auto const qr_decomp = A.colPivHouseholderQr();
     if (!qr_decomp.isInvertible())

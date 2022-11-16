@@ -1,14 +1,20 @@
 #ifndef CADYA_GEOMETRY_INTERSECTION_HPP
 #define CADYA_GEOMETRY_INTERSECTION_HPP
 
-#include "circle.hpp"
-#include "line_segment.hpp"
+#include "geometry/circle.hpp"
+#include "geometry/line.hpp"
+#include "geometry/line_segment.hpp"
 
 #include <boost/container/static_vector.hpp>
 
 #include <optional>
 
 namespace cdy {
+
+auto intersection(
+        Line const& first,
+        Line const& second)
+    -> std::optional<Coordinate>;
 
 auto intersection(
         LineSegment const& first,

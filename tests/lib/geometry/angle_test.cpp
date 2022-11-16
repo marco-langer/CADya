@@ -6,6 +6,8 @@
 
 #include <numbers>
 
+using namespace cdy::literals::angle_literals;
+
 TEST_CASE("geometry.Angle.degree_to_radian()")
 {
     auto const [value, expected_value] = GENERATE(table<double, double>({
@@ -36,4 +38,13 @@ TEST_CASE("geometry.Angle.radian_to_degree()")
     auto const result = cdy::detail::radian_to_degree(value);
 
     REQUIRE(result == Catch::Approx(expected_value));
+}
+
+TEST_CASE("geometry.Angle.operator+()") {
+
+    auto const first = 30_deg;
+    auto const second = 12_deg;
+    auto const expected_result = 42_deg;
+
+    REQUIRE(first + second == Catch::Approx(expected_result));
 }

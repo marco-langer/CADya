@@ -2,9 +2,13 @@ set(TEST_NAME cadya_lib_tests)
 
 set(TEST_SOURCES
     geometry/angle_test.cpp
+    geometry/circle_test.cpp
     geometry/circle_utils_test.cpp
+    geometry/coordinate_utils_test.cpp
     geometry/intersection_test.cpp
     geometry/line_segment_utils_test.cpp
+    geometry/line_test.cpp
+    geometry/line_utils_test.cpp
     geometry/trigonometry_test.cpp
 )
 
